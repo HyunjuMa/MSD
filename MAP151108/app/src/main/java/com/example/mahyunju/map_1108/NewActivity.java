@@ -23,9 +23,7 @@ import java.util.HashMap;
  */
 public class NewActivity extends ListActivity implements android.view.View.OnClickListener{
 
-    //ListView list1;
     Button btnGetAll;
-
 
     @Override
     public void onClick(View view) {

@@ -11,6 +11,8 @@ public class MyPlaces {
     // table columns names
     public static final String COLUMN_ROWID = "id";
     public static final String COLUMN_NAME_POINT = "point";
+//    public static final String COLUMN_NAME_POINT_LAT = "point_lat";
+//    public static final String COLUMN_NAME_POINT_LNG = "point_lng";
     public static final String COLUMN_NAME_CITY = "city";
     public static final String COLUMN_NAME_COMMENT = "comment";
     public static final String COLUMN_NAME_IMAGE = "image";

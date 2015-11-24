@@ -15,6 +15,8 @@ public class DBHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+
+
     public void onCreate(SQLiteDatabase db) {
 
         String SQL_CREATE_ENTRIES =

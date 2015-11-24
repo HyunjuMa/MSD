@@ -34,7 +34,7 @@ public class AddMyPlace extends AppCompatActivity implements android.view.View.O
         pointClicked = getIntent().getExtras().getString("thepoint").split(",");
 
         TextView addPlace = (TextView)(findViewById(R.id.newplace));
-        addPlace.setText("Latitude: " + pointClicked[0] + ", Longitude: " + pointClicked[1]);
+        addPlace.setText(pointClicked[0] + "," + pointClicked[1]);
 
         btnSave = (Button) findViewById(R.id.btnSave);
         btnClose = (Button) findViewById(R.id.btnClose);
@@ -60,10 +60,16 @@ public class AddMyPlace extends AppCompatActivity implements android.view.View.O
 
             TextView getpoint = (TextView)findViewById(R.id.newplace);
             String getpoint1 = (String) getpoint.getText();
+            int index1 = getpoint1.indexOf("(");
+            int index2 = getpoint1.indexOf(",");
+            int index3 = getpoint1.indexOf(")");
+            String getpoint2 = getpoint1.substring(index1+1, index2).trim();
+            String getpoint2_y = getpoint1.substring(index2+1, index3-1).trim();
 
-            place.point = getpoint1;
-            //place.point_lat = Double.parseDouble(pointClicked[0]);
-            //place.point_lng = Double.parseDouble(pointClicked[1]);
+            place.point_lat = Double.parseDouble(getpoint2);
+            place.point_lng = Double.parseDouble(getpoint2_y);
+            
+            place.point = getpoint2 + "," + getpoint2_y;
 
             //place.point_latlng = (place.point_lat, place.point_lng);
             place.city = editTextName.getText().toString();
@@ -72,15 +78,9 @@ public class AddMyPlace extends AppCompatActivity implements android.view.View.O
 
             //_place_id = repo.insert(place);
 
-            int result = 0;
-            result = repo.insert(place);
+            repo.insert(place);
 
-          //  if(result!=0) {
-                Toast.makeText(this, "New Place inserted", Toast.LENGTH_LONG).show();
-           // }
-            //else {
-              //  Toast.makeText(this, "Something went wrong!", Toast.LENGTH_SHORT).show();
-            //}
+            Toast.makeText(this, "New Place inserted", Toast.LENGTH_LONG).show();
         }
         else if(view == findViewById(R.id.btnClose)) {
             finish();
