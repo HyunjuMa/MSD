@@ -1,25 +1,23 @@
-package com.example.mahyunju.map_1108;
+package com.example.mahyunju.dbformyapp;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.BaseColumns;
 
 /**
- * Created by mahyunju on 23/11/15.
+ * Created by mahyunju on 22/11/15.
  */
+
 public class DBHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "myapp1.db";
+    public static final String DATABASE_NAME = "test1122.db";
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-
-
     public void onCreate(SQLiteDatabase db) {
-
-        // db.execSQL("DROP TABLE " + MyPlaces.TABLE + " IF EXISTS");
 
         String SQL_CREATE_ENTRIES =
                 "CREATE TABLE " + MyPlaces.TABLE + " (" +
@@ -27,10 +25,9 @@ public class DBHelper extends SQLiteOpenHelper {
                         MyPlaces.COLUMN_NAME_POINT + " TEXT, " +
                         MyPlaces.COLUMN_NAME_CITY + " TEXT, " +
                         MyPlaces.COLUMN_NAME_COMMENT + " TEXT, " +
-                        MyPlaces.COLUMN_NAME_WISH + " TEXT )" ;
-     //                   MyPlaces.COLUMN_NAME_IMAGE + " INT, " +
-     //                   MyPlaces.COLUMN_NAME_IMAGE_2 + " INT, " +
-     //                   MyPlaces.COLUMN_NAME_IMAGE_3 + " INT )" ;
+                        MyPlaces.COLUMN_NAME_IMAGE + " INT, " +
+                        MyPlaces.COLUMN_NAME_IMAGE_2 + " INT, " +
+                        MyPlaces.COLUMN_NAME_IMAGE_3 + " INT )" ;
         db.execSQL(SQL_CREATE_ENTRIES);
     }
 
@@ -43,3 +40,5 @@ public class DBHelper extends SQLiteOpenHelper {
         //onUpgrade(db, oldVersion, newVersion);
     }
 }
+
+

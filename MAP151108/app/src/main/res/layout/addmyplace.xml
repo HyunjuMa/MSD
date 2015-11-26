@@ -12,11 +12,20 @@
         android:textColor="#999919"
         />
 
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/wishornot"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/newplace"
+        android:text="Add to Wish"
+        />
+
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editTextName"
-        android:layout_below="@+id/newplace"
+        android:layout_below="@+id/wishornot"
         />
 
     <EditText

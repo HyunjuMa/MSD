@@ -25,6 +25,9 @@ import com.google.android.gms.maps.model.Marker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 public class MapsActivity extends FragmentActivity implements OnMapClickListener, OnMapLongClickListener {
 
@@ -69,10 +72,58 @@ public class MapsActivity extends FragmentActivity implements OnMapClickListener
     private void setUpMap() {
 
         //getMyPlacesFromDB();
+
+        /*
         PlaceRepo repo = new PlaceRepo(this);
         ArrayList<HashMap<String,String>> placelist = repo.getPlaceList();
         if(placelist.size()!=0) {
-            //
+            for(HashMap<String, String> myplace : placelist) {
+                for(Map.Entry<String, String> placeEntry : myplace.entrySet()) {
+                    String point =
+                }
+            }
+        }
+        */
+
+        PlaceRepo repo = new PlaceRepo(this);
+        ArrayList<HashMap<String,String>> placelist = repo.getPlaceList();
+
+        if(placelist.size()!=0) {
+            for (int x = 0; x < placelist.size(); x++ ) {
+                String myCity = placelist.get(x).get("city");
+                String myPoint = placelist.get(x).get("point");
+                int myWish = Integer.valueOf(placelist.get(x).get("wish"));
+
+                int index = myPoint.indexOf(",");
+                String point_lat = myPoint.substring(0, index).trim();
+                String point_lng = myPoint.substring(index + 1).trim();
+
+                Double point_lat2 = Double.parseDouble(point_lat);
+                Double point_lng2 = Double.parseDouble(point_lng);
+
+                LatLng MYPLACEPOSITION = new LatLng(point_lat2, point_lng2);
+                String MYPLACETITLE = myCity;
+
+                if(myWish>0) {
+                    mMap.addMarker(new MarkerOptions()
+                                    .position(MYPLACEPOSITION)
+                                    .title(MYPLACETITLE)
+                                    .draggable(true)
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.flag3))
+                                    .anchor(0.0f, 1.0f)
+                                    .alpha(0.5f)
+                    );
+                }
+                else {
+                    mMap.addMarker(new MarkerOptions()
+                                    .position(MYPLACEPOSITION)
+                                    .title(MYPLACETITLE)
+                                    .draggable(true)
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.flag3))
+                                    .anchor(0.0f, 1.0f)
+                    );
+                }
+            }
         }
 
         final LatLng PERTH = new LatLng(-31.90, 115.86);
@@ -82,6 +133,8 @@ public class MapsActivity extends FragmentActivity implements OnMapClickListener
                         .draggable(true)
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.flag3))
                         .anchor(0.0f, 1.0f)
+                        .alpha(0.5f)
+                        // alpha for wishplace
         );
 
         final LatLng BARCELONA = new LatLng(41.39,2.07);

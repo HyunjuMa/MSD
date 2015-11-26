@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.model.LatLng;
@@ -26,6 +28,9 @@ public class AddMyPlace extends AppCompatActivity implements android.view.View.O
     //private String _place_id ;
     public String[] pointClicked;
 
+    ToggleButton btnwish;
+    boolean wishornot = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +43,21 @@ public class AddMyPlace extends AppCompatActivity implements android.view.View.O
 
         btnSave = (Button) findViewById(R.id.btnSave);
         btnClose = (Button) findViewById(R.id.btnClose);
+
+        btnwish = (ToggleButton) findViewById(R.id.wishornot);
+        btnwish.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // The toggle is enabled : put this place in wishlist! not myplacelist
+                    // Comment box disabled?
+                    wishornot = true;
+                } else {
+                    // The toggle is disabled : Actually been to there! add to my place
+                    // editTextComment = (EditText) findViewById(R.id.editTextComment); // try later
+                    wishornot = false;
+                }
+            }
+        });
 
         editTextName = (EditText) findViewById(R.id.editTextName); //name of the city
         editTextComment = (EditText) findViewById(R.id.editTextComment);
@@ -72,6 +92,7 @@ public class AddMyPlace extends AppCompatActivity implements android.view.View.O
             place.point = getpoint2 + "," + getpoint2_y;
 
             //place.point_latlng = (place.point_lat, place.point_lng);
+            place.wish = wishornot;
             place.city = editTextName.getText().toString();
             place.comment = editTextComment.getText().toString();
             //place.placeid = Integer.parseInt(_place_id);
@@ -79,7 +100,6 @@ public class AddMyPlace extends AppCompatActivity implements android.view.View.O
             //_place_id = repo.insert(place);
 
             repo.insert(place);
-
             Toast.makeText(this, "New Place inserted", Toast.LENGTH_LONG).show();
         }
         else if(view == findViewById(R.id.btnClose)) {
