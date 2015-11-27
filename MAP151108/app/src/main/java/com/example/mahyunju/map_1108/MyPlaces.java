@@ -5,7 +5,10 @@ import com.google.android.gms.maps.model.LatLng;
 /**
  * Created by mahyunju on 23/11/15.
  */
+// Only one table is needed for my app : MyPlaces
+// that will store name of the city, comment of it, point(on the map), and if it is wished or actually visited
 public class MyPlaces {
+
     public static final String TABLE = "MyPlaces";
 
     // table columns names

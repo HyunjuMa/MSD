@@ -1,0 +1,90 @@
+
+
+유저에 대한 정보를 애초에 저장할 필요가 없음
+유저 = 폰주인, 무조건 1명이라고 침
+
+필요한 테이블 개수 :
+
+
+1. MyPlaces
+- id of city 대신에 Point of place? 마커로 구분.. 마커가 id..
+- name the city.. 지도가 받아오면 좋지만 .......... ??
+- comments 
+- images ..........
+
+2. Wishlist *********** another flag needed / gray? 
+- id of city (point)
+- boolean 1/0 (1 when wished)
+
+
+
+
+---
+
+ public final class DefineAContract {
+        public DefineAContract() {}
+
+        // inner class that defines the table contents (1st table, Myplaces)
+        public abstract class MyPlaces implements BaseColumns {
+            public static final String TABLE_NAME = "MyPlaces";
+            public static final String COLUMN_NAME_POINT = "point";
+            public static final String COLUMN_NAME_CITY = "city";
+            public static final String COLUMN_NAME_COMMENT = "comment";
+            public static final String COLUMN_NAME_IMAGE = "image";
+            public static final String COLUMN_NAME_IMAGE_2 = "image2";
+            public static final String COLUMN_NAME_IMAGE_3 = "image3";
+
+            public String point;
+            public String city;
+            public String comment;
+            public int image;
+            public int image2;
+            public int image3;
+        }
+    }
+
+
+
+
+===
+
+
+
+//DBHelper dbHelper;
+    public final class DefineAContract {
+        public DefineAContract() {}
+
+        // inner class that defines the table contents (1st table, Myplaces)
+        public abstract class FeedEntry implements BaseColumns {
+            public static final String TABLE_NAME = "MyPlaces";
+            public static final String COLUMN_NAME_POINT = "point";
+            public static final String COLUMN_NAME_CITY = "city";
+            public static final String COLUMN_NAME_COMMENT = "comment";
+            public static final String COLUMN_NAME_IMAGE = "image";
+            public static final String COLUMN_NAME_IMAGE_2 = "image2";
+            public static final String COLUMN_NAME_IMAGE_3 = "image3";
+
+            public String point;
+            public String city;
+            public String comment;
+            public int image;
+            public int image2;
+            public int image3;
+        }
+
+    }
+
+    private static final String TEXT_TYPE = " TEXT";
+    private static final String INT_TYPE = " INTEGER";
+    private static final String COMMA_SEP = ",";
+    private static final String SQL_CREATE_ENTRIES =
+            "CREATE TABLE " + DefineAContract.FeedEntry.TABLE_NAME + " (" +
+                    DefineAContract.FeedEntry._ID + "INTEGER PRIMARY KEY," +
+                    DefineAContract.FeedEntry.COLUMN_NAME_POINT + TEXT_TYPE + COMMA_SEP +
+                    DefineAContract.FeedEntry.COLUMN_NAME_CITY + TEXT_TYPE + COMMA_SEP +
+                    DefineAContract.FeedEntry.COLUMN_NAME_COMMENT + TEXT_TYPE + COMMA_SEP +
+                    DefineAContract.FeedEntry.COLUMN_NAME_IMAGE + INT_TYPE + COMMA_SEP +
+                    DefineAContract.FeedEntry.COLUMN_NAME_IMAGE_2 + INT_TYPE + COMMA_SEP +
+                    DefineAContract.FeedEntry.COLUMN_NAME_IMAGE_3 + INT_TYPE + COMMA_SEP +
+                    " )";
+    private static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + DefineAContract.FeedEntry.TABLE_NAME;

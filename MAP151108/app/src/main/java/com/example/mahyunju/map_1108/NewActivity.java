@@ -21,6 +21,7 @@ import java.util.HashMap;
 /**
  * Created by mahyunju on 20/11/15.
  */
+// activity called when a user clicks on full alpha marker
 public class NewActivity extends ListActivity implements android.view.View.OnClickListener{
 
     Button btnGetAll;
@@ -31,19 +32,8 @@ public class NewActivity extends ListActivity implements android.view.View.OnCli
             PlaceRepo repo = new PlaceRepo(this);
             ArrayList<HashMap<String, String>> placelist = repo.getPlaceList();
             if(placelist.size()!=0) {
-                /*ListView lv = getListView();
-
-                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        //nothing happens when clicked, just showing a listed sets of cities and comments
-                        //placeid = (TextView) view.findViewById(R.id.placeid);
-                        //String ID = placeid.getText().toString();
-                        //
-                    }
-                });
-                */
-                ListAdapter adapter2 = new SimpleAdapter(NewActivity.this, placelist, R.layout.view_place_entry, new String[] {"city", "comment"}, new int[] {R.id.city, R.id.comment});
+                ListAdapter adapter2
+                        = new SimpleAdapter(NewActivity.this, placelist, R.layout.view_place_entry, new String[] {"city", "comment"}, new int[] {R.id.city, R.id.comment});
                 setListAdapter(adapter2);
             }
             else {

@@ -27,6 +27,7 @@
 
         <activity android:name=".NewActivity" />
         <activity android:name=".AddMyPlace" />
+        <activity android:name=".WishList" />
 
         <activity
             android:name=".MapsActivity"

@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="15dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/newplace"
-        android:textSize="20dp"
+        android:textSize="25dp"
         android:textAlignment="center"
-        android:textColor="#999919"
+        android:textColor="#1B5E20"
         />
 
     <ToggleButton
@@ -26,6 +27,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/editTextName"
         android:layout_below="@+id/wishornot"
+        android:hint="Name of the Place"
         />
 
     <EditText
@@ -33,21 +35,25 @@
         android:layout_height="wrap_content"
         android:id="@+id/editTextComment"
         android:layout_below="@+id/editTextName"
-        />
+        android:inputType="textMultiLine"
+        android:hint="Any Comments about the Place"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnSave"
-        android:layout_below="@+id/editTextComment"
         android:text="Add to My Places"
-        />
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/btnClose" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnClose"
-        android:layout_below="@+id/btnSave"
         android:text="Cancel"
-        />
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/editTextComment"
+        android:layout_alignEnd="@+id/editTextComment"
+        android:layout_marginRight="56dp"
+        android:layout_marginEnd="56dp" />
 
 </RelativeLayout>

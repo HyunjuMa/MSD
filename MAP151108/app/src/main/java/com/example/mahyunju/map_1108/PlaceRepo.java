@@ -16,6 +16,9 @@ import java.util.HashMap;
 /**
  * Created by mahyunju on 23/11/15.
  */
+
+// This is for Database queries and I referenced quite much of this part on the following website : http://instinctcoder.com/android-studio-sqlite-database-example/
+
 public class PlaceRepo {
     private DBHelper dbHelper;
 

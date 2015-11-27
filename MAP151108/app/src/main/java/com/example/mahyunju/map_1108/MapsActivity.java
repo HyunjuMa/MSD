@@ -37,17 +37,8 @@ public class MapsActivity extends FragmentActivity implements OnMapClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-/*
-        mMap.setOnMapLongClickListener(new OnMapLongClickListener() {
-            @Override
-            public void onMapLongClick(LatLng latLng) {
-                Toast.makeText(getApplicationContext(), latLng.toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
-*/
+
         setUpMapIfNeeded();
-       // mMap =((SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
-       // mMap.setMyLocationEnabled(true);
     }
 
     @Override
@@ -71,23 +62,10 @@ public class MapsActivity extends FragmentActivity implements OnMapClickListener
 
     private void setUpMap() {
 
-        //getMyPlacesFromDB();
-
-        /*
-        PlaceRepo repo = new PlaceRepo(this);
-        ArrayList<HashMap<String,String>> placelist = repo.getPlaceList();
-        if(placelist.size()!=0) {
-            for(HashMap<String, String> myplace : placelist) {
-                for(Map.Entry<String, String> placeEntry : myplace.entrySet()) {
-                    String point =
-                }
-            }
-        }
-        */
-
         PlaceRepo repo = new PlaceRepo(this);
         ArrayList<HashMap<String,String>> placelist = repo.getPlaceList();
 
+        // when setting up the map, I had to get information about myplaces so that I could put the flag image on the map
         if(placelist.size()!=0) {
             for (int x = 0; x < placelist.size(); x++ ) {
                 String myCity = placelist.get(x).get("city");
@@ -100,10 +78,13 @@ public class MapsActivity extends FragmentActivity implements OnMapClickListener
 
                 Double point_lat2 = Double.parseDouble(point_lat);
                 Double point_lng2 = Double.parseDouble(point_lng);
+                // this part is ia little messy but it was for making a LatLng to String, String to Double and making it a LatLng again.
 
                 LatLng MYPLACEPOSITION = new LatLng(point_lat2, point_lng2);
                 String MYPLACETITLE = myCity;
 
+                // if it is tha place the user actually visited, I will make it full alpha.
+                // If not, I will make alpha of the marker 0.5 so that it can be quite transparent.
                 if(myWish>0) {
                     mMap.addMarker(new MarkerOptions()
                                     .position(MYPLACEPOSITION)
@@ -126,40 +107,27 @@ public class MapsActivity extends FragmentActivity implements OnMapClickListener
             }
         }
 
-        final LatLng PERTH = new LatLng(-31.90, 115.86);
-        mMap.addMarker(new MarkerOptions()
-                        .position(PERTH)
-                        .title("Perth, test")
-                        .draggable(true)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.flag3))
-                        .anchor(0.0f, 1.0f)
-                        .alpha(0.5f)
-                        // alpha for wishplace
-        );
-
-        final LatLng BARCELONA = new LatLng(41.39,2.07);
-        mMap.addMarker(new MarkerOptions()
-                        .position(BARCELONA)
-                        .title("Barcelona, test2")
-                        .draggable(true)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.flag3))
-                        .anchor(0.0f, 1.0f)
-        );
-
-
+        // when marker is clicked on, it will open different activity ( either wishlist or list of places the user visitied )
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                Toast.makeText(MapsActivity.this, marker.getPosition().toString(), Toast.LENGTH_SHORT).show();
 
-                Intent intent1 = new Intent(MapsActivity.this, NewActivity.class);
-                intent1.putExtra("theplace", marker.getTitle());
-                startActivity(intent1);
-                return true;
+                float alphaofmarker = marker.getAlpha();
+                if(alphaofmarker<1) {
+                    Intent intentwish = new Intent(MapsActivity.this, WishList.class);
+                    intentwish.putExtra("wishplace", marker.getTitle().toString());
+                    startActivity(intentwish);
+                    return true;
+                }
+                else {
+                    Intent intent1 = new Intent(MapsActivity.this, NewActivity.class);
+                    intent1.putExtra("theplace", marker.getTitle().toString());
+                    startActivity(intent1);
+                    return true;
+                }
             }
         });
 
-//        mMap.setMyLocationEnabled(true); // not needed
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setZoomGesturesEnabled(true);
 
@@ -167,9 +135,6 @@ public class MapsActivity extends FragmentActivity implements OnMapClickListener
 
 
     }
-
-    //title(name), latlng 반환하는 함수를 여기 말고 PlaceRepo에다가 넣어야 함!!!
-
 
     @Override
     public void onMapClick(LatLng point) {
@@ -180,8 +145,7 @@ public class MapsActivity extends FragmentActivity implements OnMapClickListener
     public void onMapLongClick(LatLng point) {
         Toast.makeText(getApplicationContext(), "long pressed, point=" + point, Toast.LENGTH_SHORT).show();
 
-
-        // Add a marker when long clicked
+        // Add a marker when long clicked on certain point of the map (Add this point to one of my places or wish lists)
         final LatLng longclickedpoint = point;
         mMap.addMarker(new MarkerOptions()
                         .position(longclickedpoint)
